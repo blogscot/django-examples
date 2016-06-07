@@ -10,7 +10,12 @@
     {% if post.image %}
         <img src="{{ post.image.url }}" class="img-responsive">
     {% endif %}
-    <p><small>Originally posted: {{post.timestamp|timesince}} ago</small><br>
+    {% if post.user.get_full_name %}
+        <p><small>Author: {{ post.user.get_full_name }}</small><br>
+    {% else %}
+        <p><small>Author: {{post.user|capfirst}}</small><br>
+    {% endif %}
+    <small>Originally posted: {{post.timestamp|timesince}} ago</small><br>
     <small>Last edited: {{post.updated|timesince}} ago</small></p>
 
     <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Facebook</a>

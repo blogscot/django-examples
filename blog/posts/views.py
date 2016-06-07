@@ -63,6 +63,7 @@ def post_edit(request, slug):
     form = PostForm(request.POST or None, request.FILES or None, instance=post)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.user = request.user
         instance.save()
         messages.success(request, 'Post updated.')
         return HttpResponseRedirect(reverse('posts:detail', args=(post.id,)))
