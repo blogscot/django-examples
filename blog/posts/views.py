@@ -1,3 +1,5 @@
+from urllib.parse import quote_plus
+
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
@@ -24,7 +26,12 @@ def post_create(request):
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, pk=slug)
-    return render(request, 'posts/detail.html', {'post': post})
+    share_string = quote_plus(post.content)
+    context = {
+        'post': post,
+        'share_string': share_string,
+    }
+    return render(request, 'posts/detail.html', context)
 
 
 def post_list(request):
