@@ -16,8 +16,7 @@
                     {% if post.user.get_full_name %}
                         Author: {{ post.user.get_full_name }}<br>
                     {% endif %}
-                    Posted on: {{ post.timestamp|timesince }} ago<br>
-                    Last Updated: {{ post.updated|timesince }} ago<br>
+                    Posted on: {{ post.publish }} <br>
                     <p><a href="{% url 'posts:edit' post.id %}" class="btn btn-primary" role="button">Edit</a>
                         <a href="{% url 'posts:delete' post.id %}" class="btn btn-default" role="button">Delete</a></p>
                 </div>

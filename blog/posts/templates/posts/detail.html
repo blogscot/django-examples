@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<div class="col-sm-6 col-sm-offset-3">
-    <h1>{{ post.title}}</h1>
+<div class="col-sm-8 col-sm-offset-3">
+    <h1>{{ post.title}}{%if post.draft %}&nbsp;<small><span style="color: red;">(draft)</span></small>{% endif %}</h1>
     <div>{{ post.content|linebreaks }}</div><br>
     {% if post.image %}
         <img src="{{ post.image.url }}" class="img-responsive">
@@ -15,7 +15,7 @@
             {% else %}
         <strong>Author: {{post.user|capfirst}}</strong> <br>
     {% endif %}
-    <p>Originally posted: {{post.timestamp|timesince}} ago<br>
+    <p>Originally posted: {{post.publish}}<br>
     Last edited: {{post.updated|timesince}} ago</p>
     <div class="fb-like"></div>
     <hr>
