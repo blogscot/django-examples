@@ -8,7 +8,7 @@ The official Django Documentation; this turns out to be suprisingly readable.
 
 + blog
 
-The Try Django 1.9 playlist, over @CodingEntrepreneurs. I recommend this tutorial as Justin's explanations are excellent and he is very active in the comments section answering viewers' comments.
+The Try Django 1.9 playlist, over at [CodingEntrepreneurs](https://www.youtube.com/user/CodingEntrepreneurs). I recommend this tutorial as Justin's explanations are excellent and he is very active in the comments section answering viewers' comments.
 
 # Setup
 
