@@ -1,5 +1,5 @@
 {% extends 'posts/base.html' %}
-
+{% load urlify %}
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
@@ -10,16 +10,16 @@
     {% if post.image %}
         <img src="{{ post.image.url }}" class="img-responsive">
     {% endif %}
-    <p><small>Originally posted:&nbsp;{{post.timestamp}}</small><br>
-    <small>Last edited:&nbsp;{{post.updated}}</small></p>
+    <p><small>Originally posted: {{post.timestamp|timesince}} ago</small><br>
+    <small>Last edited: {{post.updated|timesince}} ago</small></p>
 
     <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Facebook</a>
-    <a href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri }}">
+    <a href="https://twitter.com/home?status={{ post.content|urlify }}%20{{ request.build_absolute_uri }}">
 Twitter
 </a>
     <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google+
 </a>
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ post.title}}&summary={{post.content}}&source={{ request.build_absolute_uri }}">
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ post.title }}&summary={{post.content}}&source={{ request.build_absolute_uri }}">
 Linkedin
 </a>
 

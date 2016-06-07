@@ -24,7 +24,7 @@ class Post(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['-updated', '-timestamp' ]
+        ordering = ['-updated', '-timestamp']
 
 
 def create_slug(instance, new_slug=None):

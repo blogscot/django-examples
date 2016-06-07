@@ -1,9 +1,7 @@
-from urllib.parse import quote_plus
-
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Post
@@ -11,6 +9,9 @@ from .forms import PostForm
 
 
 def post_create(request):
+    if not request.user.is_authenticated():
+        messages.success(request, 'User is not logged in.')
+        return redirect('posts:list')
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -26,10 +27,9 @@ def post_create(request):
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, pk=slug)
-    share_string = quote_plus(post.content)
+
     context = {
         'post': post,
-        'share_string': share_string,
     }
     return render(request, 'posts/detail.html', context)
 
@@ -56,6 +56,9 @@ def post_list(request):
 
 
 def post_edit(request, slug):
+    if not request.user.is_authenticated():
+        messages.success(request, 'User is not logged in.')
+        return redirect('posts:list')
     post = get_object_or_404(Post, pk=slug)
     form = PostForm(request.POST or None, request.FILES or None, instance=post)
     if form.is_valid():
@@ -73,6 +76,9 @@ def post_edit(request, slug):
 
 
 def post_delete(request, slug):
+    if not request.user.is_authenticated():
+        messages.success(request, 'User is not logged in.')
+        return redirect('posts:list')
     post = get_object_or_404(Post, pk=slug)
     post.delete()
     messages.success(request, 'Post deleted successfully.')
