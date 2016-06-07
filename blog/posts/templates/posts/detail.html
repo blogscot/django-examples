@@ -1,0 +1,17 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-6 col-sm-offset-3">
+    <h1>{{ post.title}}</h1>
+    <p>{{ post.content|linebreaks }}</p><br>
+    {% if post.image %}
+        <img src="{{ post.image.url }}" class="img-responsive">
+    {% endif %}
+    <p><small>Originally posted:&nbsp;{{post.timestamp}}</small><br>
+    <small>Last edited:&nbsp;{{post.updated}}</small></p>
+</div>
+
+{% endblock %}
