@@ -26,7 +26,7 @@
                     {% if post.draft %}
                         <span style="color: red; font-weight: bold;"> Draft</span>
                         {% endif %}</p>
-                    {{ post.content|linebreaks|truncatechars:120 }}<br>
+                    <span class="content-markdown">{{ post.content|truncatechars:120 }}</span><br>
                     {% if post.user.get_full_name %}
                         Author: {{ post.user.get_full_name }}<br>
                     {% endif %}
