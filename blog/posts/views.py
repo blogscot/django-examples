@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
@@ -48,8 +49,16 @@ def post_list(request):
     if user.is_staff or user.is_superuser:
         posts = Post.objects.all()
 
-    paginator = Paginator(posts, 6)  # Show 25 contacts per page
+    query = request.GET.get('q')
+    if query:
+        posts = posts.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(user__first_name__icontains=query) |
+            Q(user__last_name__icontains=query)
+        ).distinct()
 
+    paginator = Paginator(posts, 6)  # Show 6 contacts per page
     page = request.GET.get('page')
     try:
         posts_per_page = paginator.page(page)

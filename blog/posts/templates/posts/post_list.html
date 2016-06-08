@@ -3,6 +3,11 @@
 
 <div class="col-sm-12">
     <h1>Post List</h1>
+    <form action="" method="GET">
+        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search posts">
+        <button type="submit">Go</button>
+    </form>
+    <hr>
     <div class="row">
         {% for post in posts %}
         <div class="col-sm-12">
@@ -16,7 +21,7 @@
                     {% if post.publish > today %}
                         <span style="color: green; font-weight: bold;">*{{ post.publish }}*</span>
                     {% else %}
-                        <weak></weak>{{ post.publish }}
+                        {{ post.publish }}
                     {% endif %}
                     {% if post.draft %}
                         <span style="color: red; font-weight: bold;"> Draft</span>
@@ -38,15 +43,17 @@
         <div class="pagination">
         <span class="step-links">
             {% if posts.has_previous %}
-                <a href="?page={{ posts.previous_page_number }}">previous</a>
+                <a href="?page={{ posts.previous_page_number }}
+                {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
             {% endif %}
 
             <span class="current">
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}
             </span>
 
             {% if posts.has_next %}
-                <a href="?page={{ posts.next_page_number }}">next</a>
+                <a href="?page={{ posts.next_page_number }}
+                {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
             {% endif %}
         </span>
         </div>
