@@ -6,7 +6,7 @@
 
 <div class="col-sm-8 col-sm-offset-3">
     <h1>{{ post.title}}{%if post.draft %}&nbsp;<small><span style="color: red;">(draft)</span></small>{% endif %}</h1>
-    <div>{{ post.content|linebreaks }}</div><br>
+    <div class="content-markdown">{{ post.content }}</div><br>
     {% if post.image %}
         <img src="{{ post.image.url }}" class="img-responsive">
     {% endif %}
@@ -22,7 +22,8 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="fb-comments" data-href="{{ request.build_absolute_uri }}"></div>
+            <div class="fb-comments" data-href="{{ request.build_absolute_uri }}"
+            data-numposts="5"></div>
         </div>
 
     </div>
