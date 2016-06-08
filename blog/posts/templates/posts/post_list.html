@@ -11,12 +11,20 @@
                 <img src="{{ post.image.url }}" class="img-responsive">
                 {% endif %}
                 <div class="caption">
-                    <a href="{% url 'posts:detail' post.id %}">{{ post.title }}</a><br>
+                    <p><a href="{% url 'posts:detail' post.id %}">
+                        <strong>{{ post.title }}</strong></a>
+                    {% if post.publish > today %}
+                        <span style="color: green; font-weight: bold;">*{{ post.publish }}*</span>
+                    {% else %}
+                        <weak></weak>{{ post.publish }}
+                    {% endif %}
+                    {% if post.draft %}
+                        <span style="color: red; font-weight: bold;"> Draft</span>
+                        {% endif %}</p>
                     {{ post.content|linebreaks|truncatechars:120 }}<br>
                     {% if post.user.get_full_name %}
                         Author: {{ post.user.get_full_name }}<br>
                     {% endif %}
-                    Posted on: {{ post.publish }} <br>
                     <p><a href="{% url 'posts:edit' post.id %}" class="btn btn-primary" role="button">Edit</a>
                         <a href="{% url 'posts:delete' post.id %}" class="btn btn-default" role="button">Delete</a></p>
                 </div>
