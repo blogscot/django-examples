@@ -6,7 +6,7 @@
 
 <div class="col-sm-8 col-sm-offset-3">
     <h1>{{ post.title}}{%if post.draft %}&nbsp;<small><span style="color: red;">(draft)</span></small>{% endif %}</h1>
-    <div class="content-markdown">{{ post.content }}</div><br>
+    <span class="post-detail-item">{{ post.markdown }}</span><br>
     {% if post.image %}
         <img src="{{ post.image.url }}" class="img-responsive">
     {% endif %}

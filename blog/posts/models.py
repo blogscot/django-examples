@@ -1,8 +1,11 @@
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save
-from django.utils.text import slugify
 from django.utils import timezone
+from django.utils.safestring import mark_safe
+from django.utils.text import slugify
+
+from markdown_deux import markdown
 
 
 class PostManager(models.Manager):
@@ -37,6 +40,10 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-updated', '-timestamp']
+
+    @property
+    def markdown(self):
+        return mark_safe(markdown(self.content))
 
 
 def create_slug(instance, new_slug=None):

@@ -39,10 +39,9 @@
 $(document).ready(function() {
     $('.content-markdown').each(function() {
         var content = $(this).text();
-        var markedContent = marked(content);
-        $(this).html(markedContent)
+        $(this).html(marked(content))
     });
-    $('.content-markdown img').each(function() {
+    $('.post-detail-item img').each(function() {
         $(this).addClass('img-responsive');
     });
 })

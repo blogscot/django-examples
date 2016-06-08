@@ -31,7 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # local apps
     'posts.apps.PostsConfig',
+    # third party apps
+    'markdown_deux',
     'pagedown',
     'django.contrib.admin',
     'django.contrib.auth',
