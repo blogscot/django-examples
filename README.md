@@ -4,12 +4,16 @@ The Django examples are taken from:
 
 + tutorial
 
-The official Django Documentation; this turns out to be suprisingly readable.
+The ***Official Django Documentation***; this turns out to be surprisingly readable.
 
 + blog
 
-The Try Django 1.9 playlist, over at [CodingEntrepreneurs](https://www.youtube.com/user/CodingEntrepreneurs). I recommend this tutorial as Justin's explanations are excellent and he is very active in the comments section answering viewers' comments.
+I started with ***Try Django 1.9*** playlist over at [CodingEntrepreneurs](https://www.youtube.com/user/CodingEntrepreneurs). 
+ 
+I thoroughly recommend this tutorial as Justin's explanations are excellent and he is very active in the comments section answering viewers' questions.
+
+Next up, the ***Advancing the Blog*** playlist, also at CodingEntrepreneurs, adds a big dose of professionalism to the introductory app.
 
 # Setup
 
-I running Python 3.5 on a windows 10 machine, using an Anaconda virtual environment. I tried using Pip on a windows box, but it was painful.
+I'm running Python 3.5 on a Windows 10 machine, using an Anaconda virtual environment; this works pretty nicely.
