@@ -3,11 +3,19 @@
 
 <div class="col-sm-12">
     <h1>Post List</h1>
-    <form action="" method="GET">
-        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search posts">
-        <button type="submit">Go</button>
+    <form action="" method="GET" class="row">
+        <div class="col-sm-8">
+            <div class="input-group">
+                <input class="form-control" type="text" name="q"
+                       value="{{ request.GET.q }}" placeholder="Search posts">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" >
+                        <span style="color: green;" class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
     </form>
-    <hr>
+    <br>
     <div class="row">
         {% for post in posts %}
         <div class="col-sm-12">

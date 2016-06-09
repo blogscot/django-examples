@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # local apps
+    'comments.apps.CommentsConfig',
     'posts.apps.PostsConfig',
     # third party apps
     'crispy_forms',
