@@ -1,10 +1,10 @@
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.signals import pre_save
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-
 from markdown_deux import markdown
 
 from comments.models import Comment
@@ -50,6 +50,10 @@ class Post(models.Model):
     @property
     def comments(self):
         return Comment.objects.filter_by_instance(self)
+
+    @property
+    def content_type(self):
+        return ContentType.objects.get_for_model(self.__class__)
 
 
 def create_slug(instance, new_slug=None):

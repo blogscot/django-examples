@@ -1,4 +1,5 @@
 {% extends 'posts/base.html' %}
+{% load crispy_forms_tags %}
 {% load urlify %}
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -23,6 +24,11 @@
 
     <div>
         <p class="lead">Comments</p>
+        <form action="." method="post">
+            {{ comment_form|crispy }}
+            <button type="submit" class="btn btn-default">Add</button>
+            {% csrf_token %}
+        </form>
         <hr>
         {% for comment in post.comments %}
             <blockquote>
