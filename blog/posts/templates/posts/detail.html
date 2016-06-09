@@ -21,14 +21,20 @@
     <div class="fb-like"></div>
     <hr>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="fb-comments" data-href="{{ request.build_absolute_uri }}"
-            data-numposts="5"></div>
-        </div>
-    </div>
     <div>
-        {{ post.comment_set.all }}
+        <p class="lead">Comments</p>
+        {% for comment in comments %}
+            {{ comment.content }}
+            <br>
+            <hr>
+            <small>
+                {% if comment.user.first_name %}
+                via {{ comment.user.first_name }} {{ comment.user.last_name}},
+                {% endif %}
+                {{ comment.timestamp|timesince }} ago
+            </small>
+        {% endfor %}
+
     </div>
 
 </div>
