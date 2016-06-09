@@ -23,16 +23,13 @@
 
     <div>
         <p class="lead">Comments</p>
-        {% for comment in comments %}
-            {{ comment.content }}
-            <br>
-            <hr>
-            <small>
-                {% if comment.user.first_name %}
-                via {{ comment.user.first_name }} {{ comment.user.last_name}},
-                {% endif %}
-                {{ comment.timestamp|timesince }} ago
-            </small>
+        <hr>
+        {% for comment in post.comments %}
+            <blockquote>
+                {{ comment.content }}
+                <footer>via {{comment.user }} | {{ comment.timestamp|timesince }} ago </footer>
+            </blockquote>
+        <hr>
         {% endfor %}
 
     </div>

@@ -7,6 +7,8 @@ from django.utils.text import slugify
 
 from markdown_deux import markdown
 
+from comments.models import Comment
+
 
 class PostManager(models.Manager):
     def active(self, *args, **kwargs):
@@ -44,6 +46,10 @@ class Post(models.Model):
     @property
     def markdown(self):
         return mark_safe(markdown(self.content))
+
+    @property
+    def comments(self):
+        return Comment.objects.filter_by_instance(self)
 
 
 def create_slug(instance, new_slug=None):
