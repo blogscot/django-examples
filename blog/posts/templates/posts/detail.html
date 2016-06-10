@@ -21,7 +21,11 @@
     Last edited: {{post.updated|timesince}} ago</p>
     <div class="fb-like"></div>
     <hr>
-
+    <p><a href="{% url 'posts:edit' post.id %}" class="btn btn-primary" role="button">Edit</a>
+       <a href="{% url 'posts:delete' post.id %}" class="btn btn-primary" role="button">Delete</a>
+       <a href="{% url 'posts:list' %}" class="btn btn-default" role="button">Cancel</a>
+    </p>
+    <br>
     <div>
         <p class="lead">Comments</p>
         <form action="." method="post">

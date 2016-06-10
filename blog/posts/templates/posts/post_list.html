@@ -26,20 +26,23 @@
                 <div class="caption">
                     <p><a href="{% url 'posts:detail' post.id %}">
                         <strong>{{ post.title }}</strong></a>
-                    {% if post.publish > today %}
-                        <span style="color: green; font-weight: bold;">*{{ post.publish }}*</span>
-                    {% else %}
-                        {{ post.publish }}
-                    {% endif %}
+                        <small>
+                            {% if post.user.get_full_name %}
+                                by {{ post.user.get_full_name }} on
+                            {% endif %}
+                            {% if post.publish > today %}
+                                <span style="color: green; font-weight: bold;">*{{ post.publish }}*</span>
+                            {% else %}
+                                {{ post.publish }}
+                            {% endif %}
+                        </small>
                     {% if post.draft %}
                         <span style="color: red; font-weight: bold;"> Draft</span>
                         {% endif %}</p>
                     <span class="post-detail-item">{{ post.markdown|truncatewords_html:12 }}</span><br>
-                    {% if post.user.get_full_name %}
-                        Author: {{ post.user.get_full_name }}<br>
-                    {% endif %}
-                    <p><a href="{% url 'posts:edit' post.id %}" class="btn btn-primary" role="button">Edit</a>
-                        <a href="{% url 'posts:delete' post.id %}" class="btn btn-default" role="button">Delete</a></p>
+
+                    <br>
+                    <p><a href="{% url 'posts:detail' post.id %}" class="btn btn-primary" role="button">View</a></p>
                 </div>
             </div>
         </div>
