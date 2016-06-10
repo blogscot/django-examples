@@ -44,14 +44,29 @@ def post_detail(request, slug):
     comment_form = CommentForm(request.POST or None, initial=initial_data)
 
     if comment_form.is_valid():
+        parent_obj = None
         c_type = comment_form.cleaned_data.get('content_type')
+        try:
+            parent_id = int(request.POST.get('parent_id'))
+        except TypeError:
+            parent_id = None
 
-        new_comment, created = Comment.objects.get_or_create(
+        # Store the parent id if we are processing a reply
+        # Confirm that the parent comment exists in the DB
+        if parent_id:
+            queryset = Comment.objects.filter(id=parent_id)
+            if queryset.exists():
+                parent_obj = queryset.first()
+
+        Comment.objects.get_or_create(
             user=request.user,
             content_type=ContentType.objects.get(model=c_type),
             object_id=comment_form.cleaned_data.get('object_id'),
             content=comment_form.cleaned_data.get('content'),
+            parent=parent_obj,
         )
+
+        return HttpResponseRedirect(reverse('posts:detail', args=(post.id,)))
 
     context = {
         'post': post,

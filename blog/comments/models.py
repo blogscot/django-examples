@@ -6,12 +6,18 @@ from django.contrib.contenttypes.models import ContentType
 
 
 class CommentManager(models.Manager):
+    def all(self):
+        """
+        Return all comments (not replies).
+        Note, replies are comments with a parent value.
+        """
+        return super().filter(parent=None)
 
     def filter_by_instance(self, instance=None):
-        """Retrieve the comments for the given post"""
+        """Retrieve the comments (not replies) for the given post"""
         content_type = ContentType.objects.get_for_model(instance.__class__)
-        #
-        return super().filter(content_type=content_type, object_id=instance.id)
+
+        return super().filter(content_type=content_type, object_id=instance.id).filter(parent=None)
 
 
 class Comment(models.Model):
@@ -20,11 +26,22 @@ class Comment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
+    parent = models.ForeignKey('self', null=True, blank=True)
 
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
     objects = CommentManager()
 
+    class Meta:
+        ordering = ['-timestamp']
+
     def __str__(self):
         return str(self.user.username)
+
+    def children(self):  # replies
+        return Comment.objects.filter(parent=self)
+
+    @property
+    def is_parent(self):
+        return self.parent is None
