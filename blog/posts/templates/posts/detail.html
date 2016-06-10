@@ -38,9 +38,9 @@
                     | {{ comment.children.count }}
                     repl{{comment.children.count|pluralize:'y,ies'}}
                 {% endif %}
-                    | <a class="comment-reply-btn" href="#">
-                    Reply
-                    </a></footer>
+                    | <a class="comment-reply-btn" href="#"> Reply </a>
+                    | <a class="" href="{{ comment.thread_url}}"> Thread </a>
+                </footer>
                 <div class="comment-reply">
                     <hr>
                     {% for reply in comment.children %}
