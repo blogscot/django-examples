@@ -37,10 +37,10 @@
                 {% if comment.children.count > 0 %}
                     | {{ comment.children.count }}
                     repl{{comment.children.count|pluralize:'y,ies'}}
+                {% endif %}
                     | <a class="comment-reply-btn" href="#">
                     Reply
                     </a></footer>
-                {% endif %}
                 <div class="comment-reply">
                     <hr>
                     {% for reply in comment.children %}
@@ -56,15 +56,11 @@
                         <button type="submit" class="btn btn-default">Reply</button>
                         {% csrf_token %}
                     </form>
-
                 </div>
-
             </blockquote>
             <hr>
         {% endfor %}
-
     </div>
-
 </div>
 
 {% endblock %}
