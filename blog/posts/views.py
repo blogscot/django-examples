@@ -32,6 +32,7 @@ def post_create(request):
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, pk=slug)
+
     if post.draft or post.publish > timezone.now().date():
         user = request.user
         if not user.is_staff or not user.is_superuser:
@@ -44,6 +45,12 @@ def post_detail(request, slug):
     comment_form = CommentForm(request.POST or None, initial=initial_data)
 
     if comment_form.is_valid():
+
+        # Users must be logged in to comment
+        if not request.user.is_authenticated():
+            messages.success(request, 'User is not logged in.')
+            return HttpResponseRedirect(reverse('posts:detail', args=(post.id,)))
+
         parent_obj = None
         c_type = comment_form.cleaned_data.get('content_type')
         try:

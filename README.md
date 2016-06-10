@@ -20,4 +20,4 @@ I'm running Python 3.5 on a Windows 10 machine, using an Anaconda virtual enviro
 
 # Hosting
 
-For the curious, you can find the blog application [here](http://blogscot.pythonanywhere.com/) .
+For the curious, you can find the blog application [here](http://blogscot.pythonanywhere.com/).
