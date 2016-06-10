@@ -8,6 +8,7 @@ from django.utils.text import slugify
 from markdown_deux import markdown
 
 from comments.models import Comment
+from .utils import get_read_time, count_words
 
 
 class PostManager(models.Manager):
@@ -32,6 +33,7 @@ class Post(models.Model):
     content = models.TextField()
     draft = models.BooleanField(default=False)
     publish = models.DateField(auto_now=False, auto_now_add=False)
+    read_time = models.TimeField(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     timestamp = models.DateTimeField('date published', auto_now=False, auto_now_add=True)
 
@@ -71,5 +73,7 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance)
 
+    if instance.markdown:
+        instance.read_time = get_read_time(instance.markdown)
 
 pre_save.connect(pre_save_post_receiver, sender=Post)

@@ -24,24 +24,32 @@
                 <img src="{{ post.image.url }}" class="img-responsive">
                 {% endif %}
                 <div class="caption">
-                    <p><a href="{% url 'posts:detail' post.id %}">
-                        <strong>{{ post.title }}</strong></a>
-                        <small>
-                            {% if post.user.get_full_name %}
-                                by {{ post.user.get_full_name }} on
-                            {% endif %}
-                            {% if post.publish > today %}
-                                <span style="color: green; font-weight: bold;">*{{ post.publish }}*</span>
-                            {% else %}
-                                {{ post.publish }}
-                            {% endif %}
-                        </small>
+                    <a href="{% url 'posts:detail' post.id %}">
+                        <h1>{{ post.title }}</h1></a>
+
+                    <small>
+                        {% if post.user.get_full_name %}
+                        by {{ post.user.get_full_name }} on
+                        {% endif %}
+                        {% if post.publish > today %}
+                            <span style="color: green; font-weight: bold;">*{{ post.publish }}*</span>
+                        {% else %}
+                            {{ post.publish }}
+                        {% endif %}
+                    </small>
                     {% if post.draft %}
                         <span style="color: red; font-weight: bold;"> Draft</span>
-                        {% endif %}</p>
+                    {% endif %}
+                    <p><strong>Read Time:</strong>
+                        <!-- Alternatively, convert read_time to int in db -->
+                        {% if post.read_time|time:"i" <= "01" %} < 1 minute
+                        {% elif post.read_time|time:"i" < "10" %}
+                        {{ post.read_time|time:"i"|slice:"1:" }} minutes
+                        {% else %}
+                          {{ post.read_time|time:"i" }} minutes
+                        {% endif %}
+                    </p>
                     <span class="post-detail-item">{{ post.markdown|truncatewords_html:12 }}</span><br>
-
-                    <br>
                     <p><a href="{% url 'posts:detail' post.id %}" class="btn btn-primary" role="button">View</a></p>
                 </div>
             </div>

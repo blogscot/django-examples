@@ -12,18 +12,19 @@
     {% if post.image %}
         <img src="{{ post.image.url }}" class="img-responsive">
     {% endif %}
-    {% if post.user.get_full_name %}
-        <strong>Author: {{ post.user.get_full_name }}</strong> <br>
-            {% else %}
-        <strong>Author: {{post.user|capfirst}}</strong> <br>
-    {% endif %}
-    <p>Originally posted: {{post.publish}}<br>
-    Last edited: {{post.updated|timesince}} ago</p>
+    <br>
+        {% if post.user.get_full_name %}
+            <strong>Author: {{ post.user.get_full_name }}</strong> <br>
+                {% else %}
+            <strong>Author: {{post.user|capfirst}}</strong> <br>
+        {% endif %}
+        <p>Originally posted: {{post.publish}}<br>
+        Last edited: {{post.updated|timesince}} ago</p>
     <div class="fb-like"></div>
     <hr>
     <p><a href="{% url 'posts:edit' post.id %}" class="btn btn-primary" role="button">Edit</a>
        <a href="{% url 'posts:delete' post.id %}" class="btn btn-primary" role="button">Delete</a>
-       <a href="{% url 'posts:list' %}" class="btn btn-default" role="button">Cancel</a>
+       <a href="{% url 'posts:list' %}" class="btn btn-default" role="button">Back</a>
     </p>
     <br>
     <div>
