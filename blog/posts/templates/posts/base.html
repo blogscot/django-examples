@@ -49,6 +49,11 @@ $(document).ready(function() {
         $('#preview-title').text(value);
     }
 
+    $('.comment-reply-btn').click(function(event) {
+        event.preventDefault();
+        $(this).parent().next('.comment-reply').fadeToggle();
+    });
+
     $('.content-markdown').each(function() {
         var content = $(this).text();
         $(this).html(marked(content))
@@ -56,6 +61,7 @@ $(document).ready(function() {
     $('.post-detail-item img').each(function() {
         $(this).addClass('img-responsive');
     });
+
     var titleInput = $('#id_title');
     setTitle(titleInput.val());
 
