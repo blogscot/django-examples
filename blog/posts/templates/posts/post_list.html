@@ -41,13 +41,7 @@
                         <span style="color: red; font-weight: bold;"> Draft</span>
                     {% endif %}
                     <p><strong>Read Time:</strong>
-                        <!-- Alternatively, convert read_time to int in db -->
-                        {% if post.read_time|time:"i" <= "01" %} < 1 minute
-                        {% elif post.read_time|time:"i" < "10" %}
-                        {{ post.read_time|time:"i"|slice:"1:" }} minutes
-                        {% else %}
-                          {{ post.read_time|time:"i" }} minutes
-                        {% endif %}
+                        < {{ post.read_time }} minute{{post.read_time|pluralize}}
                     </p>
                     <span class="post-detail-item">{{ post.markdown|truncatewords_html:12 }}</span><br>
                     <p><a href="{% url 'posts:detail' post.id %}" class="btn btn-primary" role="button">View</a></p>

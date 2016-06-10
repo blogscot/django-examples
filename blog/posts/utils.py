@@ -10,8 +10,7 @@ def count_words(html):
 
 
 def calculate_read_time(word_count, word_per_minute=200):
-    read_time = ceil(word_count / word_per_minute)
-    return str(datetime.timedelta(minutes=read_time))
+    return ceil(word_count / word_per_minute)
 
 
 def get_read_time(html):

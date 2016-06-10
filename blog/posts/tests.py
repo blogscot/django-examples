@@ -13,4 +13,4 @@ class UtilsTests(TestCase):
         self.assertEquals(5, count)
 
     def test_calculate_read_time(self):
-        self.assertEqual('0:05:00', calculate_read_time(1000))
+        self.assertEqual(5, calculate_read_time(1000))
