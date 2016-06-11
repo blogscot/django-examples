@@ -1,0 +1,20 @@
+{% extends 'posts/base.html' %}
+{% block title %}R U Sure?{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-8 col-sm-offset-3">
+
+    <h1>Confirm Delete</h1>
+    <form action="." method="post">
+        <p>Are you sure you want to delete: "{{ comment.content }}"?</p>
+        <button type="submit" class="btn btn-warning">Confirm</button>
+        <a href="{% url 'comments:thread' comment.id %}" class="btn btn-default" role="button">Cancel</a>
+        {% csrf_token %}
+    </form>
+    </div>
+    <hr>
+
+</div>
+
+{% endblock %}

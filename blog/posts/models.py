@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_save
 from django.utils import timezone
@@ -8,7 +9,7 @@ from django.utils.text import slugify
 from markdown_deux import markdown
 
 from comments.models import Comment
-from .utils import get_read_time, count_words
+from .utils import get_read_time
 
 
 class PostManager(models.Manager):
@@ -44,6 +45,10 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-updated', '-timestamp']
+
+    @property
+    def absolute_url(self):
+        return reverse('posts:detail', args=(self.id,))
 
     @property
     def markdown(self):

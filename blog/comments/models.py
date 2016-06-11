@@ -43,7 +43,7 @@ class Comment(models.Model):
         return Comment.objects.filter(parent=self)
 
     @property
-    def thread_url(self):
+    def absolute_url(self):
         return reverse('comments:thread', args=(self.id,))
 
     @property
