@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,6 +11,7 @@ from . forms import CommentForm
 from . models import Comment
 
 
+@login_required
 def comment_delete(request, id):
     try:
         comment = Comment.objects.get(id=id)
@@ -48,8 +50,7 @@ def comment_thread(request, id):
     }
 
     form = CommentForm(request.POST or None, initial=initial_data)
-
-    if form.is_valid():
+    if form.is_valid() and request.user.is_authenticated():
         # Users must be logged in to comment
         if not request.user.is_authenticated():
             messages.success(request, 'User is not logged in.')
