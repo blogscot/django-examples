@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect, Http404, HttpResponse
+from django.shortcuts import render
 
 
 from . forms import CommentForm
@@ -10,7 +11,16 @@ from . models import Comment
 
 
 def comment_delete(request, id):
-    comment = get_object_or_404(Comment, pk=id)
+    try:
+        comment = Comment.objects.get(id=id)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    # Only the comment author is permitted to delete their comment
+    if comment.user != request.user:
+        messages.success(request, "Permission denied.")
+        return HttpResponseRedirect(comment.absolute_url)
+
     if request.method == 'POST':
         parent_comment_url = comment.content_object.absolute_url
         comment.delete()
@@ -24,7 +34,13 @@ def comment_delete(request, id):
 
 
 def comment_thread(request, id):
-    comment = get_object_or_404(Comment, pk=id)
+    try:
+        comment = Comment.objects.get(id=id)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    if not comment.is_parent:
+        comment = comment.parent
 
     initial_data = {
         'content_type': comment.content_type,  # associated post instance

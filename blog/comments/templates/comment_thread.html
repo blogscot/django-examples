@@ -12,17 +12,24 @@
 
     {{ comment.content }}
     <footer>via {{comment.user }} | {{ comment.timestamp|timesince }} ago
-    {% if comment.children.count > 0 %}
-        | {{ comment.children.count }}
-        repl{{comment.children.count|pluralize:'y,ies'}}
-    {% endif %}
+        {% if comment.children.count > 0 %}
+            | {{ comment.children.count }}
+            repl{{comment.children.count|pluralize:'y,ies'}}
+        {% endif %}
+        {% if request.user == comment.user %}
+            | <a href="{{ comment.delete_url }}">Delete</a>
+        {% endif %}
     </footer>
     <div>
         <hr>
         {% for reply in comment.children %}
         <blockquote>
             {{ reply.content }}
-            <footer>via {{ reply.user }} | {{ reply.timestamp|timesince }} ago</footer>
+            <footer>via {{ reply.user }} | {{ reply.timestamp|timesince }} ago
+                {% if request.user == comment.user %}
+                    | <a href="{{ reply.delete_url }}">Delete</a>
+                {% endif %}
+            </footer>
         </blockquote>
         {% endfor %}
 

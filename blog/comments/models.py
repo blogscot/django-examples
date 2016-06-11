@@ -47,5 +47,9 @@ class Comment(models.Model):
         return reverse('comments:thread', args=(self.id,))
 
     @property
+    def delete_url(self):
+        return reverse('comments:delete', args=(self.id,))
+
+    @property
     def is_parent(self):
         return self.parent is None
