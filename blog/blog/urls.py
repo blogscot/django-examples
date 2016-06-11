@@ -19,11 +19,15 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from posts.urls import views
+from accounts.views import login_view, logout_view, register_view
 
 urlpatterns = [
     url(r'^$', views.post_list),
     url(r'^comments/', include('comments.urls', namespace='comments')),
     url(r'^posts/', include('posts.urls', namespace="posts")),
+    url(r'^login/', login_view, name='login'),
+    url(r'^logout/', logout_view, name='logout'),
+    url(r'^register/', register_view, name='register'),
     url(r'^admin/', admin.site.urls),
 ]
 
