@@ -3,6 +3,10 @@
 {% load urlify %}
 {% block title %}{{ post.title }}{% endblock %}
 
+{% block post_detail_link %}
+    <li><a href="{{ post.absolute_url }}">{{ post.title }}</a></li>
+{% endblock %}
+
 {% block content %}
 
 <div class="col-sm-8 col-sm-offset-3">
